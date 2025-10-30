@@ -79,4 +79,5 @@ int main()
     str.display_data();
     str.calculate();
     return 0;
-} 
+}
+
