@@ -1,78 +1,125 @@
-#include<iostream>
-#include<cmath>
+#include <iostream>
+#include <string>
 using namespace std;
-const double PI = 3.14159;
 
-class Shape {
-    public:
-        virtual double calculateArea() const = 0;
-        virtual double calculatePerimeter() const = 0;
+// Base class
+class Employee {
+private:
+    int no;
+    string name;
+
+public:
+    virtual void salary() = 0;
+
+    virtual void display() = 0;
+
+protected:
+    void getEmployeeDetails() {
+        cout << "Enter employee number: ";
+        cin >> no;
+        cout << "Enter employee name: ";
+        cin >> name;
+    }
+
+    void showEmployeeDetails() const {
+        cout << "Employee Number: " << no << endl;
+        cout << "Employee Name: " << name << endl;
+    }
 };
 
-class Circle : public Shape {
-    private:
-        double radius;
-    public:
-        Circle(double rad) {
-            radius = rad;
-        }
-        double calculateArea() const override {
-            return PI * pow(radius, 2);
-        }
-        double calculatePerimeter() const override {
-            return 2 * PI * radius;
-        }
+// Derived class: SalariedEmployee
+class SalariedEmployee : public Employee {
+private:
+    double monthlySalary;
+
+public:
+    void salary() override {
+        getEmployeeDetails();
+        cout << "Enter employee monthly salary: ";
+        cin >> monthlySalary;
+    }
+
+    void display() override {
+        cout << "\nSalaried Employee:\n";
+        showEmployeeDetails();
+        cout << "Salary: " << monthlySalary << endl;
+    }
 };
 
-class Rectangle : public Shape {
-    private:
-        double length, width;
-    public:
-        Rectangle(double len, double wid) {
-            length = len;
-            width = wid;
-        }
-        double calculateArea() const override {
-            return length * width;
-        }
-        double calculatePerimeter() const override {
-            return 2 * (length + width);
-        }
+// Derived class: HourlyEmployee
+class HourlyEmployee : public Employee {
+private:
+    double hours;
+    double rate;
+
+public:
+    void salary() override {
+        getEmployeeDetails();
+        cout << "Enter hours: ";
+        cin >> hours;
+        cout << "Enter hourly rate: ";
+        cin >> rate;
+    }
+
+    void display() override {
+        cout << "\nHourly Employee:\n";
+        showEmployeeDetails();
+        cout << "Hours: " << hours << endl;
+        cout << "Hourly Rate: " << rate << endl;
+        cout << "Salary: " << (hours * rate) << endl;
+    }
 };
 
-class Triangle : public Shape {
-    private:
-        double side1, side2, side3;
-    public:
-        Triangle(double s1, double s2, double s3) {
-            side1 = s1;
-            side2 = s2;
-            side3 = s3;
-        }
-        double calculateArea() const override {
-            double s = (side1 + side2 + side3) / 2;
-            return sqrt(s * (s - side1) * (s - side2) * (s - side3));
-        }
-        double calculatePerimeter() const override {
-            return side1 + side2 + side3;
-        }
+// Derived class: CommissionedEmployee
+class CommissionedEmployee : public Employee {
+private:
+    double salaryDouble;
+    int overtime;
+
+public:
+    void salary() override {
+        getEmployeeDetails();
+        cout << "Enter base salary: ";
+        cin >> salaryDouble;
+        cout << "Enter overtime hours: ";
+        cin >> overtime;
+    }
+
+    void display() override {
+        cout << "\nCommissioned Employee:\n";
+        showEmployeeDetails();
+        cout << "Base Salary: " << salaryDouble << endl;
+        cout << "Overtime: " << overtime << " hours" << endl;
+        cout << "Total Salary: " << (salaryDouble + (overtime * 15)) << endl;
+    }
 };
 
+// Main function
 int main() {
     cout << "Name  : Sakshi Dattatray Patil\n";
     cout << "Roll No: 97\n";
     cout << "Class : S.Y CSE (B)\n";
-    Circle circle(7.0);
-    Rectangle rectangle(4.2, 8.0);
-    Triangle triangle(4.0, 4.0, 3.2);
-    cout << "Circle" << endl;
-    cout << "Area: " << circle.calculateArea() << endl;
-    cout << "Perimeter: " << circle.calculatePerimeter() << endl;
-    cout << "Rectangle" << endl;
-    cout << "Area: " << rectangle.calculateArea() << endl;
-    cout << "Perimeter: " << rectangle.calculatePerimeter() << endl;
-    cout << "Triangle" << endl;
-    cout << "Area: " << triangle.calculateArea() << endl;
-    cout << "Perimeter: " << triangle.calculatePerimeter() << endl;
+    Employee* employees[3];
+    SalariedEmployee newSalariedEmployee;
+    HourlyEmployee newHourlyEmployee;
+    CommissionedEmployee newCommissionedEmployee;
+
+    employees[0] = &newSalariedEmployee;
+    employees[1] = &newHourlyEmployee;
+    employees[2] = &newCommissionedEmployee;
+
+    cout << "\n=== Enter Employee Details ===\n";
+    for (int i = 0; i < 3; i++) {
+        employees[i]->salary();
+        cout << endl;
+    }
+
+    cout << "\n=== Employee Details ===\n";
+    for (int i = 0; i < 3; i++) {
+        employees[i]->display();
+        cout << endl;
+    }
+
+    system("pause");
     return 0;
 }
