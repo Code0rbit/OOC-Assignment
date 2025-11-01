@@ -90,6 +90,7 @@ public:
 int main() {
   cout<<"Name: Sakshi Dattatray Patil\n";
   cout<<"Roll_no: 97\n";
+  cout<<"Class: S.Y CSE (B)\n";
     SavingAccount saving("Alice", 1001, 5000.0, 3.0);
     CheckingAccount checking("Bob", 1002, 3000.0, 20.0);
 
