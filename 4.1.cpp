@@ -39,9 +39,9 @@ public:
 };
 
 int main() {
-   cout<<"Name: Sakshi Dattatray Patil\n";
-   cout<<"RollNo: 97\n";
-   cout<<"Class: CSE (B)\n";
+cout << "Name  : Sakshi Dattatray Patil\n";
+cout << "Roll No: 97\n";
+cout << "Class : S.Y CSE (B)\n";
     Rectangle rect(4.0, 40.0);
 
     cout << "Rectangle properties:" << endl;
